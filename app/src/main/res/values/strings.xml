@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">iFuel app</string>
+    <string name="viewFuelStation">View Fuel Station</string>
+    <string name="addFuelStationTitle">Add fuel Station</string>
+    <string name="ownerName">Owner name</string>
+    <string name="location">Location</string>
+    <string name="homeno">Home Number</string>
+    <string name="phone">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="input" />
+    <string name="addfuelstation">Add Fuel Station</string>
+    <string name="updateFuelStatusTitle">Update Fuel Status</string>
+    <string name="fuelType">Fuel Type</string>
+    <string name="fuelStatus">Availability Status (Y/N)</string>
+    <string name="updateFuelStatus">Update Fuel Status</string>
+    <string name="edit">Update</string>
+    <string name="delete">Delete</string>
+    <string name="search">Search</string>
+    <string name="viewAllFuelStations">All Fuel Stations</string>
+    <string name="view">View</string>
+    <string name="updateArrivalTitle">Update Arrival Time</string>
+
+</resources>
