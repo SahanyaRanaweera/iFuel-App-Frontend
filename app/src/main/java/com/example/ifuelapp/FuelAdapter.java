@@ -42,6 +42,10 @@ public class FuelAdapter extends RecyclerView.Adapter<FuelAdapter.userViewHolder
     @Override
     public void onBindViewHolder(userViewHolder holder, int position) {
         holder.fuelType.setText(fuelList.get(position).getFuelType().toString());
+        if(fuelList.get(position).getAvailabilityStatus().equals("true"))
+            holder.availabilityStatus.setText("Available");
+        else
+            holder.availabilityStatus.setText("Not Available");
     }
 
     @Override
@@ -55,11 +59,13 @@ public class FuelAdapter extends RecyclerView.Adapter<FuelAdapter.userViewHolder
 
     public class userViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView fuelType;
+        TextView availabilityStatus;
         Button update;
         Button delete;
         public userViewHolder(View itemView) {
             super(itemView);
             fuelType = (TextView)itemView.findViewById(R.id.fuel_type);
+            availabilityStatus = (TextView)itemView.findViewById(R.id.availabilityStatus);
             update = (Button)itemView.findViewById(R.id.update_button);
             delete = (Button)itemView.findViewById(R.id.delete_button);
             itemView.setOnClickListener(this);

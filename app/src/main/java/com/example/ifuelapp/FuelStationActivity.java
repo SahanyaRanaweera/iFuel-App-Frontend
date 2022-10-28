@@ -23,6 +23,7 @@ public class FuelStationActivity extends AppCompatActivity implements ItemClickL
     List<FuelStation> fuelStationList;
     RecyclerView recyclerView;
     FuelStationAdapter fuelStationAdapter;
+    Button addbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class FuelStationActivity extends AppCompatActivity implements ItemClickL
         recyclerView.setLayoutManager(layoutManager);
         fuelStationAdapter = new FuelStationAdapter(getApplicationContext(), fuelStationList);
         recyclerView.setAdapter(fuelStationAdapter);
+        addbtn = (Button)findViewById(R.id.addbtn);
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<List<FuelStation>> call = apiService.getFuelStations();
@@ -61,5 +63,16 @@ public class FuelStationActivity extends AppCompatActivity implements ItemClickL
 
         Log.i("hello", fuelStationList.get(position).getId().toString());
         startActivity(i);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FuelStationActivity.this,AddFuelStation.class);
+                startActivity(intent);
+            }
+        });
     }
 }

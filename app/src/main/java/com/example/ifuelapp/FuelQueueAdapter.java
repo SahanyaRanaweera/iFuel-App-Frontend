@@ -1,6 +1,8 @@
 package com.example.ifuelapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,15 @@ import com.example.ifuelapp.models.FuelQueue;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class FuelQueueAdapter extends RecyclerView.Adapter<FuelQueueAdapter.userViewHolder> {
 
     Context context;
     List<FuelQueue> fuelQueue;
+    private ItemClickListener clickListener;
 
     public FuelQueueAdapter(Context context, List<FuelQueue> fuelQueue) {
         this.context = context;
@@ -28,6 +35,10 @@ public class FuelQueueAdapter extends RecyclerView.Adapter<FuelQueueAdapter.user
         notifyDataSetChanged();
     }
 
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
+    }
+
     @Override
     public userViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_fuel_queue,parent,false);
@@ -37,7 +48,43 @@ public class FuelQueueAdapter extends RecyclerView.Adapter<FuelQueueAdapter.user
     @Override
     public void onBindViewHolder(userViewHolder holder, int position) {
         holder.name.setText(fuelQueue.get(position).getName().toString());
-        holder.pumpStatus.setText(fuelQueue.get(position).getPumpStatus().toString());
+        if(fuelQueue.get(position).getFuelPumpStatus())
+            holder.pumpStatus.setText("Pumped");
+        else
+            holder.pumpStatus.setText("Not Pumped");
+
+        holder.update.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                Intent i = new Intent(context,UpdatePumpStatus.class);
+                i.putExtra("queue_id", fuelQueue.get(position).getId().toString());
+                context.startActivity(i);
+            }
+        });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                Call<FuelQueue> call = apiService.deleteFuelQueue(fuelQueue.get(position).getId());
+
+                call.enqueue(new Callback<FuelQueue>() {
+                    @Override
+                    public void onResponse(Call<FuelQueue> call, Response<FuelQueue> response) {
+                        FuelQueue responseFromAPI = response.body();
+                        Log.d("TAG","Response DEL = "+ response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<FuelQueue> call, Throwable t) {
+                        Log.d("TAG","Response = "+t.toString());
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -49,7 +96,7 @@ public class FuelQueueAdapter extends RecyclerView.Adapter<FuelQueueAdapter.user
 
     }
 
-    public class userViewHolder extends RecyclerView.ViewHolder {
+    public class userViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView name;
         TextView pumpStatus;
         Button update;
@@ -60,8 +107,14 @@ public class FuelQueueAdapter extends RecyclerView.Adapter<FuelQueueAdapter.user
             pumpStatus = (TextView)itemView.findViewById(R.id.pumpStatus);
             update = (Button)itemView.findViewById(R.id.update_button);
             delete = (Button)itemView.findViewById(R.id.delete_button);
+
         }
 
+        @Override
+        public void onClick(View view) {
+            clickListener.onClick(view, getPosition()); // call the onClick in the OnItemClickListener
+        }
 
     }
+
 }

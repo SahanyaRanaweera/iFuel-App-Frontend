@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="false"
-    tools:context=".MainActivity">
+    tools:context=".UpdatePumpStatus">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,17 +47,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
                 android:background="@android:color/holo_blue_dark"
-                android:onClick="register"
+                android:onClick="updatePumpStatus"
                 android:padding="2dp"
                 android:text="Update Departure Time"
                 android:textColor="@android:color/background_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etavailability" />
+                app:layout_constraintTop_toBottomOf="@id/etpumpstatus" />
 
             <EditText
-                android:id="@+id/etfueltype"
+                android:id="@+id/etstation"
                 android:layout_width="170dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="36dp"
@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <EditText
-                android:id="@+id/etavailability"
+                android:id="@+id/etvehicletype"
                 android:layout_width="170dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="60dp"
@@ -82,7 +82,7 @@
                 android:inputType="textPersonName"
                 android:text="@string/input"
                 app:layout_constraintStart_toEndOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/etfueltype" />
+                app:layout_constraintTop_toBottomOf="@+id/etstation" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -124,7 +124,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <EditText
-                android:id="@+id/etavaiklability"
+                android:id="@+id/etdeparttime"
                 android:layout_width="170dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="40dp"
@@ -135,7 +135,7 @@
                 android:inputType="textPersonName"
                 android:text="@string/input"
                 app:layout_constraintStart_toEndOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/etavailability" />
+                app:layout_constraintTop_toBottomOf="@id/etvehicletype" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -151,7 +151,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <EditText
-                android:id="@+id/etavaiolability"
+                android:id="@+id/etpumpstatus"
                 android:layout_width="170dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="64dp"
@@ -162,7 +162,7 @@
                 android:inputType="textPersonName"
                 android:text="@string/input"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/etavaiklability" />
+                app:layout_constraintTop_toBottomOf="@id/etdeparttime" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

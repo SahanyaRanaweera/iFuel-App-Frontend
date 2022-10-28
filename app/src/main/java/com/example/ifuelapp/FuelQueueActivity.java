@@ -3,6 +3,8 @@ package com.example.ifuelapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +26,7 @@ public class FuelQueueActivity extends AppCompatActivity {
     TextView location;
     RecyclerView recyclerView;
     FuelQueueAdapter fuelQueueAdapter;
-
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +38,27 @@ public class FuelQueueActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         fuelQueueAdapter = new FuelQueueAdapter(getApplicationContext(), fuelQueues);
         recyclerView.setAdapter(fuelQueueAdapter);
+        button = (Button)findViewById(R.id.button);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("station_id");
         String station_location = intent.getStringExtra("location");
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<FuelQueue>> call = apiService.getFuelQueue(id);
+        Call<List<FuelQueue>> call = apiService.getFuelQueue();
 
         call.enqueue(new Callback<List<FuelQueue>>() {
             @Override
             public void onResponse(Call<List<FuelQueue>> call, Response<List<FuelQueue>> response) {
-                fuelQueues = response.body();
                 Log.d("TAG","Response = "+ response.body());
+
+//                List<FuelQueue> filteredList = new ArrayList<>();
+//                for (FuelQueue queue : response.body()) {
+//                    if (queue.getStationId().equals(id)) {
+//                        filteredList.add(queue);
+//                    }
+//                }
+                fuelQueues = response.body();
                 location.setText(station_location);
                 fuelQueueAdapter.setFuelQueue(fuelQueues);
             }
@@ -61,6 +71,16 @@ public class FuelQueueActivity extends AppCompatActivity {
 
         });
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FuelQueueActivity.this,AddToQueue.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 }

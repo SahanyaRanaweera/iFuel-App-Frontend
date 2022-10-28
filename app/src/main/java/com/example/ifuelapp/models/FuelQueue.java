@@ -6,15 +6,33 @@ public class FuelQueue {
 
     @SerializedName("id")
     private String id;
-    @SerializedName("name")
+    @SerializedName("vehicleName")
     private String name;
-    @SerializedName("pumpStatus")
-    private String pumpStatus;
+    @SerializedName("fuelPumpStatus")
+    private boolean fuelPumpStatus;
+    @SerializedName("stationId")
+    private String stationId;
+    @SerializedName("departureTime")
+    private String departureTime;
+    @SerializedName("arrivaltime")
+    private String arrivetime;
 
-    public FuelQueue(String id, String name, String pumpStatus) {
+    public FuelQueue(String id, String name, boolean fuelPumpStatus, String stationId) {
         this.id = id;
         this.name = name;
-        this.pumpStatus = pumpStatus;
+        this.fuelPumpStatus = fuelPumpStatus;
+        this.stationId = stationId;
+    }
+
+    public FuelQueue(boolean fuelPumpStatus, String departureTime) {
+        this.fuelPumpStatus = fuelPumpStatus;
+        this.departureTime = departureTime;
+    }
+
+    public FuelQueue(String station, String vehicletype, String arrivetime) {
+        this.stationId = station;
+        this.name = vehicletype;
+        this.arrivetime = arrivetime;
     }
 
     public String getId() {
@@ -33,11 +51,19 @@ public class FuelQueue {
         this.name = name;
     }
 
-    public String getPumpStatus() {
-        return pumpStatus;
+    public boolean getFuelPumpStatus() {
+        return fuelPumpStatus;
     }
 
-    public void setPumpStatus(String pumpStatus) {
-        this.pumpStatus = pumpStatus;
+    public void setFuelPumpStatus(boolean fuelPumpStatus) {
+        this.fuelPumpStatus = fuelPumpStatus;
+    }
+
+    public String getStationId() {
+        return stationId;
+    }
+
+    public void setStationId(String stationId) {
+        this.stationId = stationId;
     }
 }

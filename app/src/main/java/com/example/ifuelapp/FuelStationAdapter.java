@@ -2,6 +2,7 @@ package com.example.ifuelapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ifuelapp.models.FuelQueue;
 import com.example.ifuelapp.models.FuelStation;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FuelStationAdapter extends RecyclerView.Adapter<FuelStationAdapter.userViewHolder> {
 
@@ -43,6 +49,28 @@ public class FuelStationAdapter extends RecyclerView.Adapter<FuelStationAdapter.
     @Override
     public void onBindViewHolder(userViewHolder holder, int position) {
         holder.location.setText(fuelStationList.get(position).getLocation().toString());
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                Call<FuelStation> call = apiService.deleteFuelStation(fuelStationList.get(position).getId());
+
+                call.enqueue(new Callback<FuelStation>() {
+                    @Override
+                    public void onResponse(Call<FuelStation> call, Response<FuelStation> response) {
+                        FuelStation responseFromAPI = response.body();
+                        Log.d("TAG","Response DEL = "+ response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<FuelStation> call, Throwable t) {
+                        Log.d("TAG","Response = "+t.toString());
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -56,10 +84,13 @@ public class FuelStationAdapter extends RecyclerView.Adapter<FuelStationAdapter.
 
     public class userViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView location;
+        Button delete;
 
         public userViewHolder(View itemView) {
             super(itemView);
             location = (TextView)itemView.findViewById(R.id.location);
+            delete = (Button)itemView.findViewById(R.id.delete_button);
+
             itemView.setOnClickListener(this);
         }
 

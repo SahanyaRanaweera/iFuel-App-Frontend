@@ -13,22 +13,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_fuel_queue);
+        setContentView(R.layout.activity_main);
 
-//        btn_redirect = findViewById(R.id.redirectbtn);
+        btn_redirect = findViewById(R.id.redirectbtn);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        btn_redirect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this,FuelStationActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        btn_redirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,FuelStationActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
 
 

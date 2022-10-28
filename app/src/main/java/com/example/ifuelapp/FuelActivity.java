@@ -71,7 +71,6 @@ public class FuelActivity extends AppCompatActivity implements ItemClickListener
         i.putExtra("station_id", fuelStation.getId().toString());
         i.putExtra("location", fuelStation.getLocation().toString());
 
-        Log.i("hello", fuelList.get(position).getId().toString());
         startActivity(i);
     }
 }

@@ -19,6 +19,10 @@ public class FuelStation {
         this.fuelStatuses = fuelStatuses;
     }
 
+    public FuelStation(String location) {
+        this.location = location;
+    }
+
     public String getId() {
         return id;
     }

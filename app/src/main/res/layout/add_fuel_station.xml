@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="false"
-    >
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
                 android:background="@android:color/holo_blue_dark"
-                android:onClick="register"
+                android:onClick="addFuelStation"
                 android:padding="2dp"
                 android:text="@string/addfuelstation"
                 android:textColor="@android:color/background_dark"
